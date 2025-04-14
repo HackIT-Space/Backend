@@ -1,6 +1,7 @@
-package org.hackit.space.managerapp.service;
+package org.hackit.space.hackathons.service;
 
-import org.hackit.space.managerapp.entity.Hackathon;
+
+import org.hackit.space.hackathons.entity.Hackathon;
 
 import java.util.List;
 import java.util.Optional;

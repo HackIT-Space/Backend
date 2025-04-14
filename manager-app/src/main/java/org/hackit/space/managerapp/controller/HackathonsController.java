@@ -1,14 +1,12 @@
 package org.hackit.space.managerapp.controller;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.hackit.space.managerapp.client.BadRequestException;
+import org.hackit.space.managerapp.client.HackathonsRestClient;
+import org.hackit.space.managerapp.controller.entity.Hackathon;
 import org.hackit.space.managerapp.controller.payload.NewHackathonPayload;
-import org.hackit.space.managerapp.entity.Hackathon;
-import org.hackit.space.managerapp.service.HackathonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("hackathons")
 public class HackathonsController {
 
-    private final HackathonService hackathonService;
+    private final HackathonsRestClient hackathonsRestClient;
 
     @GetMapping("list")
     public String getHackathonsList(Model model) {
-        model.addAttribute("hackathons", this.hackathonService.findAllHackathons());
+        model.addAttribute("hackathons", this.hackathonsRestClient.findAllHackathons());
         return "hackathons/list";
     }
 
@@ -32,18 +30,15 @@ public class HackathonsController {
     }
 
     @PostMapping("create")
-    public String createHackathon(@Valid NewHackathonPayload payload,
-                                  BindingResult bindingResult,
+    public String createHackathon(NewHackathonPayload payload,
                                   Model model) {
-        if (bindingResult.hasErrors()) {
+        try {
+            Hackathon hackathon = hackathonsRestClient.createHackathon(payload.title(), payload.description());
+            return "redirect:/hackathons/%d".formatted(hackathon.id());
+        } catch (BadRequestException exception) {
             model.addAttribute("payload", payload);
-            model.addAttribute("errors", bindingResult.getAllErrors().stream()
-                    .map(ObjectError::getDefaultMessage)
-                    .toList());
+            model.addAttribute("errors", exception.getErrors());
             return "hackathons/new_hackathon";
-        } else {
-            Hackathon hackathon = hackathonService.createHackathon(payload.title(), payload.description());
-            return "redirect:/hackathons/%d".formatted(hackathon.getId());
         }
     }
 }

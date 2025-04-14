@@ -1,6 +1,6 @@
-package org.hackit.space.managerapp.repository;
+package org.hackit.space.hackathons.repository;
 
-import org.hackit.space.managerapp.entity.Hackathon;
+import org.hackit.space.hackathons.entity.Hackathon;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;

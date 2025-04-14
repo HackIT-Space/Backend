@@ -1,8 +1,8 @@
-package org.hackit.space.managerapp.service;
+package org.hackit.space.hackathons.service;
 
 import lombok.RequiredArgsConstructor;
-import org.hackit.space.managerapp.entity.Hackathon;
-import org.hackit.space.managerapp.repository.HackathonRepository;
+import org.hackit.space.hackathons.entity.Hackathon;
+import org.hackit.space.hackathons.repository.HackathonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
