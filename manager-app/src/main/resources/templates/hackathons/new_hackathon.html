@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New hackathon</title>
+</head>
+<body>
+<a data-th-href="@{/hackathons/list}">&larr; Hackathons list</a>
+<h1>New hackathon</h1>
+<div data-th-if="${errors}">
+    <h2>Fix errors</h2>
+    <ul>
+        <li data-th-each="error: ${errors}" data-th-text="${error}"></li>
+    </ul>
+</div>
+<form data-th-action="@{/hackathons/create}" method="post">
+    <label>
+        Title:<br>
+        <input type="text" name="title" data-th-value="${payload?.title}">
+    </label>
+    <label>
+        Description:<br>
+        <textarea name="description" data-th-text="${payload?.description}"></textarea>
+    </label><br>
+    <button type="submit">Create</button>
+</form>
+</body>
+</html>

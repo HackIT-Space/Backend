@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[[${hackathon.title}]]</title>
+</head>
+<body>
+<a data-th-href="@{/hackathons/list}">&larr; Hackathons list</a>
+<h1 data-th-text="${hackathon.title}"></h1>
+<ul>
+    <li><strong>ID</strong>: <span data-th-text="${hackathon.id}"></span></li>
+    <li><strong>Title</strong>: <span data-th-text="${hackathon.title}"></span></li>
+    <li><strong>Description</strong>: <span data-th-text="${hackathon.description}"></span></li>
+</ul>
+<a data-th-href="@{/hackathons/{hackathonId}/edit(hackathonId=${hackathon.id})}">Edit</a>
+<form method="post" data-th-action="@{/hackathons/{hackathonId}/delete(hackathonId=${hackathon.id})}">
+    <button type="submit">Delete</button>
+</form>
+</body>
+</html>
