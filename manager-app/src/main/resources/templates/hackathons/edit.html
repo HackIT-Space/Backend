@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit [[${hackathon.title}]] hackathon</title>
+</head>
+<body>
+<a data-th-href="@{/hackathons/{hackathonId}(hackathonId=${hackathon.id})}">To hackathon</a>
+<h1>Edit [[${hackathon.title}]] hackathon</h1>
+<div data-th-if="${errors}">
+    <h2>Fix errors</h2>
+    <ul>
+        <li data-th-each="error: ${errors}" data-th-text="${error}"></li>
+    </ul>
+</div>
+
+<form data-th-action="@{/hackathons/{hackathonId}/edit(hackathonId=${hackathon.id})}" method="post">
+    <label>
+        Title:<br>
+        <input type="text" name="title" data-th-value="${payload != null ? payload.title : hackathon.title}">
+    </label>
+    <label>
+        Description:<br>
+        <textarea name="description" data-th-text="${payload != null ? payload.description : hackathon.description}"></textarea>
+    </label><br>
+    <button type="submit">Edit</button>
+</form>
+</body>
+</html>
