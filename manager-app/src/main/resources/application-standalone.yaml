@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: manager-app
+
+hackit:
+  service:
+    hackathons:
+      uri: http://localhost:8081

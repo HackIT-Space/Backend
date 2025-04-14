@@ -1,4 +1,4 @@
-package org.hackit.space.managerapp.entity;
+package org.hackit.space.hackathons.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
