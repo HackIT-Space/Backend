@@ -24,10 +24,10 @@ public class HackathonsRestClientImpl implements HackathonsRestClient {
     private final RestClient restClient;
 
     @Override
-    public List<Hackathon> findAllHackathons() {
+    public List<Hackathon> findAllHackathons(String filter) {
         return this.restClient
                 .get()
-                .uri("/hackathons-api/hackathons")
+                .uri("/hackathons-api/hackathons?filter={filter}", filter)
                 .retrieve()
                 .body(HACKATHONS_TYPE_REFERENCE);
     }

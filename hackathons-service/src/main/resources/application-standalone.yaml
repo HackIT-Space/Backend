@@ -1,6 +1,17 @@
 spring:
-  application:
-    name: hackathons-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hackathons
+    username: hackathons
+    password: hackathons
+  flyway:
+    schemas:
+      - public
+      - hackathons
+  jpa:
+    show-sql: true
 
 server:
   port: 8081
+logging:
+  level:
+    sql: info

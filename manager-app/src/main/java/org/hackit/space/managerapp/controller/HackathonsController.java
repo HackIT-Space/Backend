@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,8 +20,9 @@ public class HackathonsController {
     private final HackathonsRestClient hackathonsRestClient;
 
     @GetMapping("list")
-    public String getHackathonsList(Model model) {
-        model.addAttribute("hackathons", this.hackathonsRestClient.findAllHackathons());
+    public String getHackathonsList(Model model, @RequestParam(name = "filter", required = false) String filter) {
+        model.addAttribute("hackathons", this.hackathonsRestClient.findAllHackathons(filter));
+        model.addAttribute("filter", filter);
         return "hackathons/list";
     }
 

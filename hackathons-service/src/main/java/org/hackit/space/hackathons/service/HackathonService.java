@@ -3,11 +3,11 @@ package org.hackit.space.hackathons.service;
 
 import org.hackit.space.hackathons.entity.Hackathon;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface HackathonService {
-    List<Hackathon> findAllHackathons();
+
+    Iterable<Hackathon> findAllHackathons(String filter);
 
     Hackathon createHackathon(String title, String description);
 
