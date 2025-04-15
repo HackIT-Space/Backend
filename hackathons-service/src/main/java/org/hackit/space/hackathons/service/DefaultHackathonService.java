@@ -1,11 +1,11 @@
 package org.hackit.space.hackathons.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.hackit.space.hackathons.entity.Hackathon;
 import org.hackit.space.hackathons.repository.HackathonRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -16,11 +16,16 @@ public class DefaultHackathonService implements HackathonService {
     private final HackathonRepository hackathonRepository;
 
     @Override
-    public List<Hackathon> findAllHackathons() {
-        return hackathonRepository.findAll();
+    public Iterable<Hackathon> findAllHackathons(String filter) {
+        if (filter != null && !filter.isBlank()) {
+            return hackathonRepository.findAllByTitleLikeIgnoreCase("%" + filter + "%");
+        } else {
+            return hackathonRepository.findAll();
+        }
     }
 
     @Override
+    @Transactional
     public Hackathon createHackathon(String title, String description) {
         return this.hackathonRepository.save(new Hackathon(null, title, description));
     }
@@ -31,6 +36,7 @@ public class DefaultHackathonService implements HackathonService {
     }
 
     @Override
+    @Transactional
     public void updateHackathon(Integer id, String title, String description) {
         this.hackathonRepository.findById(id)
                 .ifPresentOrElse(hackathon -> {
@@ -42,6 +48,7 @@ public class DefaultHackathonService implements HackathonService {
     }
 
     @Override
+    @Transactional
     public void deleteHackathon(Integer id) {
         this.hackathonRepository.deleteById(id);
     }

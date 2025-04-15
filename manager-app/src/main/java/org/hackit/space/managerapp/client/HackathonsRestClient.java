@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface HackathonsRestClient {
 
-    List<Hackathon> findAllHackathons();
+    List<Hackathon> findAllHackathons(String filter);
 
     Hackathon createHackathon(String title, String description);
 

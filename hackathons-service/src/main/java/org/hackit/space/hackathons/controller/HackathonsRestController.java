@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -22,8 +21,8 @@ public class HackathonsRestController {
     private final HackathonService hackathonService;
 
     @GetMapping
-    public List<Hackathon> findHackathons() {
-        return this.hackathonService.findAllHackathons();
+    public Iterable<Hackathon> findHackathons(@RequestParam(name = "filter", required = false) String filter) {
+        return this.hackathonService.findAllHackathons(filter);
     }
 
     @PostMapping
